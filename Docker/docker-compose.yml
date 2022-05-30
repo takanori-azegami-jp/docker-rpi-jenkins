@@ -1,26 +1,22 @@
 version: "3.8"
 services:
-  jenkins_master:
+  jenkins:
     build:
       context: .
       dockerfile: Dockerfile
-    image: jenkins_master
-    container_name: jenkins_master
-    hostname: jenkins_master
+    image: jenkins
+    container_name: jenkins
+    hostname: jenkins
     tty: true
     restart: always
     environment:
+      TZ: Asia/Tokyo
       JENKINS_OPTS: '--prefix=/jenkins'
     ports:
       - 8080:8080
       - 50000:50000
     volumes:
-      - jenkins_master_data:/var/jenkins_home
-    networks:
-      - default
+      - jenkins:/var/jenkins_home
 volumes:
-  jenkins_master_data:
+  jenkins:
     driver: local
-networks:
-  default:
-    name: jenkins-network
